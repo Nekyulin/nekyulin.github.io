@@ -15,9 +15,13 @@
   line-height: 1.65;
 }
 
-html[lang="zh-CN"] {
+html[lang="zh-CN"], .library-wordmark[lang="zh-CN"] {
   --wordmark-ratio: 3960 / 951;
   --wordmark-width-scale: calc(3960 / 951 * 101 / 864);
+}
+.library-wordmark[lang="en"] {
+  --wordmark-ratio: 864 / 101;
+  --wordmark-width-scale: 1;
 }
 html[lang="zh-CN"] .localized-copy[lang="en"],
 html[lang="en"] .localized-copy[lang="zh-CN"] { display: none; }

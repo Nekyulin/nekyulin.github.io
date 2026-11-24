@@ -44,8 +44,12 @@ if (commentsEnabled && (!commentsRepo || !commentsRepoId || !commentsCategory ||
   throw new Error('启用评论需要 GISCUS_REPO、GISCUS_REPO_ID、GISCUS_CATEGORY、GISCUS_CATEGORY_ID 和 BLOG_SITE_URL。');
 }
 
-function renderWordmark(home, alt = siteTitle) {
-  return `<img data-wordmark src="${home}library-title-zh.svg" alt="${escapeHtml(alt)}" width="3960" height="951">`;
+function renderWordmark(home, { decorative = false, language } = {}) {
+  const english = language === 'en';
+  const file = english ? 'library-title.svg' : 'library-title-zh.svg';
+  const alt = decorative ? '' : english ? "Nekyulin's Library" : siteTitle;
+  const size = english ? 'width="864" height="101"' : 'width="3960" height="951"';
+  return `<img${language ? '' : ' data-wordmark'} src="${home}${file}" alt="${escapeHtml(alt)}" ${size}>`;
 }
 
 function renderLanguageToggle() {
@@ -90,7 +94,7 @@ function renderArticleTranslation(translation) {
   return `<a ${attributes} href="${translation.href}" hreflang="${translation.lang}" aria-label="${label}" data-i18n-label="${key}">${icon}</a>`;
 }
 
-function layout({ title, description, home, path = '', content, math = false, homepage = false, articleTranslation, hasMorePosts = false }) {
+function layout({ title, description, home, path = '', content, math = false, homepage = false, articleTranslation, articleLanguage, hasMorePosts = false }) {
   const fontStyles = webFonts.flatMap(({ name, styles }) => styles.map(style =>
     `<link rel="stylesheet" href="${home}fonts/${name}/${style}">`));
   const canonical = siteUrl ? new URL(path, siteUrl).href : '';
@@ -115,8 +119,8 @@ function layout({ title, description, home, path = '', content, math = false, ho
       </a>
       ${articleTranslation === undefined ? '' : renderArticleTranslation(articleTranslation)}
     </div>`}
-    <div class="library-wordmark">
-      ${renderWordmark(home, homepage ? '' : siteTitle)}
+    <div class="library-wordmark"${articleLanguage ? ` lang="${articleLanguage}"` : ''}>
+      ${renderWordmark(home, { decorative: homepage, language: articleLanguage })}
       ${homepage ? `<p class="home-caption library-cover-caption" data-i18n="welcome">${welcome}</p>` : ''}
     </div>
   </header>
@@ -337,6 +341,7 @@ function renderPost(post, translated = false) {
     path: url,
     math: true,
     articleTranslation,
+    articleLanguage: lang,
     content: `
     <article lang="${lang}">
       <header class="post-header">

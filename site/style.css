@@ -218,7 +218,7 @@ time { color: var(--muted); font-size: 0.875rem; font-variant-numeric: tabular-n
   scroll-margin-top: var(--library-bar-height);
 }
 
-.post-list { --meta-column: 7.25rem; list-style: none; max-width: 50rem; padding: 0; margin: 0; }
+.post-list { --meta-column: 7.25rem; list-style: none; padding: 0; margin: 0; }
 .post-list li {
   display: grid;
   grid-template-columns: var(--meta-column) minmax(0, 1fr);

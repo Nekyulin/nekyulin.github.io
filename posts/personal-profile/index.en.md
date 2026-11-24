@@ -7,7 +7,7 @@ I hope you'll understand that, with limited time and energy, I won't be able to 
 ### Education
 
 - 2025–present: School of Artificial Intelligence, Nanjing University, Jiangsu Province, China (undergraduate)
-- 2022–2025: Fuzhou No. 1 Middle School, Fujian, China (senior high school)
+- 2022–2025: Fuzhou No. 1 Middle School, Fujian Province, China (senior high school)
 
 ### Research Interests
 

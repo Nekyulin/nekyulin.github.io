@@ -143,6 +143,8 @@ time { color: var(--muted); font-size: 0.875rem; font-variant-numeric: tabular-n
   z-index: -1;
   inset: 0;
   overflow: hidden;
+  color-scheme: only dark;
+  forced-color-adjust: none;
   pointer-events: none;
 }
 

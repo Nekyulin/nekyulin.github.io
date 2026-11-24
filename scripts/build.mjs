@@ -103,6 +103,8 @@ function layout({ title, description, home, path = '', content, math = false, ho
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  ${homepage ? '<meta name="darkreader-lock">' : ''}
   <meta name="description" content="${escapeHtml(description)}">
   <title>${escapeHtml(title)}</title>
   ${canonical ? `<link rel="canonical" href="${escapeHtml(canonical)}">` : ''}

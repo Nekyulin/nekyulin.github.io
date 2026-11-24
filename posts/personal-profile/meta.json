@@ -5,6 +5,7 @@
   "summary": "我的基本情况。",
   "pinned": true,
   "pinPriority": 10,
+  "discussion": false,
   "translation": {
     "title": "Personal Profile",
     "summary": "A brief introduction."

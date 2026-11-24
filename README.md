@@ -26,6 +26,7 @@ posts/
 | `tag` | 字符串 | 可省略。每篇最多一个，填写根目录 [`tags.json`](tags.json) 里的标签 ID，例如 `"writing"`。 |
 | `pinned` | 布尔值 | `true` 表示置顶，省略时为 `false`。置顶文章右侧显示图钉。 |
 | `pinPriority` | 整数 | 置顶时使用，数值越大越靠前，省略时为 `0`。同优先级按发布日期倒序。普通文章也按发布日期倒序。 |
+| `discussion` | 布尔值 | 省略时为 `true`，显示文章评论区。设为 `false` 时关闭该文章的评论区，适用于所有语言版本。全站评论须先完成配置。 |
 | `translation` | 对象 | 可省略。包含另一语言的 `title`，以及对应的 `summary`。 |
 
 **最简写法**
@@ -48,6 +49,7 @@ posts/
   "tag": "writing",
   "pinned": true,
   "pinPriority": 10,
+  "discussion": true,
   "translation": {
     "title": "Writing Notes",
     "summary": "A few things I learned while writing."

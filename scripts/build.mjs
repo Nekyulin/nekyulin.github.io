@@ -143,6 +143,7 @@ async function readPost(slug, tags) {
     ]);
     const {
       title, date, summary = '', tag = '', lang = 'zh-CN', translation, pinned = false, pinPriority = 0,
+      discussion = true,
     } = JSON.parse(metadata.replace(/^\uFEFF/, ''));
     if (typeof title !== 'string' || !title.trim() || typeof summary !== 'string') {
       throw new Error('meta.json 需要填写 title，summary 可以省略，二者都使用字符串。');
@@ -155,6 +156,7 @@ async function readPost(slug, tags) {
     if (lang !== 'zh-CN' && lang !== 'en') throw new Error('meta.json 中的 lang 必须是 zh-CN 或 en。');
     if (typeof pinned !== 'boolean') throw new Error('pinned 必须是 true 或 false。');
     if (!Number.isSafeInteger(pinPriority)) throw new Error('pinPriority 必须是整数。');
+    if (typeof discussion !== 'boolean') throw new Error('discussion 必须是 true 或 false。');
 
     const tagName = tag.trim().normalize();
     const category = tags.ids.get(tagName) || tags.names.get(tagName.toLowerCase());
@@ -174,6 +176,7 @@ async function readPost(slug, tags) {
       tag: category,
       pinned,
       pinPriority,
+      discussion,
       summary: summary.trim(),
       html: markdown.render(body.replace(/^\uFEFF/, '')),
       translation: alternate,
@@ -316,8 +319,8 @@ function renderTagPage(tag, posts, page) {
   });
 }
 
-function renderComments(slug) {
-  if (!commentsEnabled) return '';
+function renderComments({ slug, discussion }) {
+  if (!commentsEnabled || !discussion) return '';
   const theme = new URL('comments.css', siteUrl).href;
   return `
     <section class="article-comments" aria-labelledby="comments-title">
@@ -341,7 +344,7 @@ function renderComments(slug) {
 }
 
 function renderPost(post, translated = false) {
-  const { slug, url, date, tag, translation } = post;
+  const { url, date, tag, translation } = post;
   const { title, summary, html, lang } = translated ? translation : post;
   const articleTranslation = translated ? { href: './', lang: post.lang } :
     translation ? { href: `./${translation.file}`, lang: translation.lang } : null;
@@ -360,7 +363,7 @@ function renderPost(post, translated = false) {
         ${renderPostMetadata({ date, tag }, '../../', lang)}
       </header>
       <div class="prose">${html}</div>
-    </article>${renderComments(slug)}`,
+    </article>${renderComments(post)}`,
   });
 }
 

@@ -272,7 +272,16 @@ function renderIndex(posts, page) {
     ${homepage ? `<section class="home-hero" aria-labelledby="home-title">
       <div class="home-art" aria-hidden="true">
         <div class="home-art-background"></div>
-        <img src="./home-illustration.svg" alt="" width="1024" height="1536">
+        <picture>
+          <source media="not all" srcset="./home-illustration.png">
+          <script>
+            // QQ's in-app browser can recolor external SVG images.
+            if (navigator.userAgent.includes(' QQ/')) {
+              document.currentScript.previousElementSibling.removeAttribute('media');
+            }
+          </script>
+          <img src="./home-illustration.svg" alt="" width="1024" height="1536">
+        </picture>
       </div>
       <div class="home-inner home-intro">
         <h1 id="home-title">${renderWordmark('./')}</h1>
@@ -412,6 +421,7 @@ async function build() {
     await cp(join(root, 'site', 'post-list.js'), join(nextOutput, 'post-list.js'));
     if (commentsEnabled) await cp(join(root, 'site', 'comments.css'), join(nextOutput, 'comments.css'));
     await cp(join(root, 'site', 'home-illustration.svg'), join(nextOutput, 'home-illustration.svg'));
+    await cp(join(root, 'site', 'home-illustration.png'), join(nextOutput, 'home-illustration.png'));
     await writeListPages(nextOutput, posts, page => renderIndex(posts, page));
     for (const [tag, taggedPosts] of postsByTag) {
       const destination = join(nextOutput, tagPath(tag));

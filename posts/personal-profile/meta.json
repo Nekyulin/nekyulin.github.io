@@ -1,0 +1,12 @@
+{
+  "title": "个人简介",
+  "date": "2026-11-25",
+  "lang": "zh-CN",
+  "summary": "我的基本情况。",
+  "pinned": true,
+  "pinPriority": 10,
+  "translation": {
+    "title": "Personal Profile",
+    "summary": "A brief introduction."
+  }
+}

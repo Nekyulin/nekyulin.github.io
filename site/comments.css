@@ -1,0 +1,25 @@
+@import url("https://giscus.app/themes/transparent_dark.css");
+
+.gsc-header:has(.gsc-comments-count > a),
+.gsc-left-header > em,
+.gsc-right-header,
+.gsc-comment-author > :not(.gsc-comment-author-avatar),
+.gsc-reply-author > :not(:first-child),
+.gsc-comment-edited,
+.gsc-reply-edited,
+.gsc-comment-footer,
+.gsc-reply-footer,
+.gsc-reply-box,
+.gsc-comment-box-md-toolbar {
+  display: none;
+}
+
+.gsc-comment > .color-bg-primary {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #2d2734;
+  border-radius: 0;
+}
+
+.gsc-comment-header { padding-inline: 0; }
+.gsc-comment-content { padding-inline: 38px 0; }

@@ -1,0 +1,20 @@
+Hi there! Welcome to my library. I'm 19 and currently an undergraduate majoring in artificial intelligence. I plan to write about academic topics, share reflections on life, and talk about my hobbies here.
+
+If you're interested in what I post or would like a more detailed academic CV, feel free to email me at <Nekyulin@outlook.com>.
+
+I hope you'll understand that, with limited time and energy, I won't be able to provide English versions of many posts.
+
+### Education
+
+- 2025–present: School of Artificial Intelligence, Nanjing University, Jiangsu Province, China (undergraduate)
+- 2022–2025: Fuzhou No. 1 Middle School, Fujian, China (senior high school)
+
+### Research Interests
+
+- My main research interest is modern artificial intelligence. I want to understand how intelligent capabilities emerge, what mechanisms underlie them, and what general principles govern them. I hope that understanding will help me find ways to improve and control these capabilities. I prefer research grounded in theory and focused on mechanisms.
+- Beyond the technology itself, I'm also interested in international politics, international relations, and the global technology landscape. I'm particularly interested in how advances in AI affect power relations and the allocation of resources among states, companies, and society.
+
+### Hobbies
+
+- Music composition and music theory
+- Writing fiction

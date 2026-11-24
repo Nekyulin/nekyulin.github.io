@@ -12,7 +12,7 @@ I hope you'll understand that, with limited time and energy, I won't be able to 
 ### Research Interests
 
 - My main research interest is modern artificial intelligence. I want to understand how intelligent capabilities emerge, what mechanisms underlie them, and what general principles govern them. I hope that understanding will help me find ways to improve and control these capabilities. I prefer research grounded in theory and focused on mechanisms.
-- Beyond the technology itself, I'm also interested in international politics, international relations, and the global technology landscape. I'm particularly interested in how advances in AI affect power relations and the allocation of resources among states, companies, and society.
+- Beyond the technology itself, I'm also keenly interested in the global technology landscape, especially in how advances in AI shape social development, resource allocation, and the evolution of evaluation systems.
 
 ### Hobbies
 

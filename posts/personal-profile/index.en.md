@@ -1,6 +1,6 @@
-Hi there! Welcome to my library. I'm 19 and currently an undergraduate majoring in artificial intelligence. I plan to write about academic topics, share reflections on life, and talk about my hobbies here.
+Hi there! Welcome to my library. I'm a 19-year-old undergraduate majoring in artificial intelligence. In my spare time, I plan to use this blog to write about academic topics, share reflections on life, and talk about my hobbies.
 
-If you're interested in what I post or would like a more detailed academic CV, feel free to email me at <Nekyulin@outlook.com>.
+If you're interested in what I share here or would like a more detailed academic CV, feel free to email me at <Nekyulin@outlook.com>.
 
 I hope you'll understand that, with limited time and energy, I won't be able to provide English versions of many posts.
 

@@ -2,5 +2,9 @@
   "writing": {
     "zh-CN": "写作",
     "en": "Writing"
+  },
+  "math": {
+    "zh-CN": "数学",
+    "en": "Mathematics"
   }
 }

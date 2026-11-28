@@ -39,6 +39,10 @@ a { color: var(--accent); text-underline-offset: 0.2em; }
 a:hover { color: var(--text); }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
+.star-note { color: var(--muted); font-size: 0.875rem; }
+.star-note a { color: inherit; text-decoration: underline; }
+.star-note a:hover { color: var(--text); }
+
 .library-bar {
   position: sticky;
   z-index: 2;
@@ -197,6 +201,7 @@ time { color: var(--muted); font-size: 0.875rem; font-variant-numeric: tabular-n
 .home-intro { padding-block-end: 0.5rem; }
 .home-caption { margin: 0; color: var(--muted); font-size: var(--cover-caption-size); }
 .home-greeting { margin-top: 0.7rem; }
+.home-star-note { margin: 0; font-size: max(0.75rem, 0.875 * var(--cover-caption-size)); }
 
 .library-cover-caption {
   position: absolute;
@@ -242,9 +247,7 @@ time { color: var(--muted); font-size: 0.875rem; font-variant-numeric: tabular-n
 
 .post-header { padding-bottom: 1.4rem; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
 .post-header .post-meta { flex-flow: row wrap; gap: 0.35rem 1rem; }
-.post-star-note { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.875rem; }
-.post-star-note a { color: inherit; text-decoration: underline; }
-.post-star-note a:hover { color: var(--text); }
+.post-star-note { margin: 0.75rem 0 0; }
 .prose { padding-top: 0.65rem; line-height: 1.85; overflow-wrap: anywhere; }
 .prose :is(h2, h3, h4, h5, h6) { color: #dac3f0; }
 .prose :is(strong, em) { color: #b9d8f6; }

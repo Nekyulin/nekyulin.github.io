@@ -265,6 +265,13 @@ function renderPostList(posts, home, page) {
   return `<ul class="post-list">${items.map(post => renderListItem(post, home)).join('')}</ul>${next}`;
 }
 
+function renderStarNote(lang) {
+  const link = `<a href="${repositoryUrl}">${lang === 'en' ? 'this site' : '这个网站'}</a>`;
+  return lang === 'en'
+    ? `If you enjoy the content, please give ${link} a STAR on GitHub!`
+    : `如果觉得内容不错，请在 Github 上给${link}点个 STAR 吧！`;
+}
+
 function renderIndex(posts, page) {
   const homepage = page === 1;
   return layout({
@@ -292,6 +299,10 @@ function renderIndex(posts, page) {
       <div class="home-inner home-intro">
         <h1 id="home-title">${renderWordmark('./')}</h1>
         <p class="home-caption home-greeting" data-i18n="welcome">${welcome}</p>
+        <p class="star-note home-star-note">
+          <span class="localized-copy" lang="zh-CN">${renderStarNote('zh-CN')}</span>
+          <span class="localized-copy" lang="en">${renderStarNote('en')}</span>
+        </p>
         <div class="home-actions">
           <a class="icon-action home-email" href="mailto:Nekyulin@outlook.com" aria-label="发送邮件" data-i18n-label="sendEmail">
             <span class="action-icon email-icon" aria-hidden="true"></span>
@@ -354,10 +365,6 @@ function renderPost(post, translated = false) {
   const { title, summary, html, lang } = translated ? translation : post;
   const articleTranslation = translated ? { href: './', lang: post.lang } :
     translation ? { href: `./${translation.file}`, lang: translation.lang } : null;
-  const starLink = `<a href="${repositoryUrl}">${lang === 'en' ? 'this site' : '这个网站'}</a>`;
-  const starNote = lang === 'en'
-    ? `If you enjoyed this article, please give ${starLink} a STAR on GitHub!`
-    : `如果觉得内容不错，请在 Github 上给${starLink}点个 STAR 吧！`;
   return layout({
     title: `${title} | ${siteTitle}`,
     description: summary || title,
@@ -372,7 +379,7 @@ function renderPost(post, translated = false) {
         <h1>${escapeHtml(title)}</h1>
         ${renderPostMetadata({ date, tag }, '../../', lang)}
       </header>
-      <p class="post-star-note">${starNote}</p>
+      <p class="star-note post-star-note">${renderStarNote(lang)}</p>
       <div class="prose">${html}</div>
     </article>${renderComments(post)}`,
   });

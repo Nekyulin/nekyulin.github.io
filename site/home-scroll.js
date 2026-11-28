@@ -1,10 +1,10 @@
 const cover = document.querySelector('.home-hero');
 const coverTitle = document.querySelector('#home-title img');
-const coverCaption = document.querySelector('.home-greeting');
+const coverCaption = document.querySelector('.home-caption');
+const captionAnchor = coverCaption.parentElement;
 const bar = document.querySelector('.library-bar-home');
 const wordmark = bar.querySelector('.library-wordmark');
 const barTitle = wordmark.firstElementChild;
-const barCaption = wordmark.querySelector('.library-cover-caption');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 let expanded;
@@ -14,14 +14,20 @@ let frame = 0;
 
 function render() {
   frame = 0;
-  const progress = Math.min(1, Math.max(0, window.scrollY / scrollDistance));
+  const scroll = window.scrollY;
+  const progress = Math.min(1, Math.max(0, scroll / scrollDistance));
   const offset = 1 - progress * progress * (3 - 2 * progress);
 
   document.body.style.setProperty('--cover-progress', progress);
   document.body.style.setProperty('--figure-drop', `${progress * scrollDistance}px`);
   bar.classList.toggle('is-collapsed', progress === 1);
-  if (reducedMotion.matches) {
+  const animate = !reducedMotion.matches;
+  const captionOpacity = animate ? Math.max(0, 1 - progress * 4) : 1;
+  coverCaption.style.opacity = captionOpacity;
+  coverCaption.style.visibility = captionOpacity === 0 ? 'hidden' : '';
+  if (!animate) {
     barTitle.style.transform = '';
+    coverCaption.style.transform = '';
     document.body.classList.add('home-motion');
     return;
   }
@@ -32,9 +38,14 @@ function render() {
   const y = (expanded.top - collapsed.top) * offset;
   barTitle.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
 
-  const captionScale = scale / startScale;
-  const captionY = y + expanded.captionOffset * captionScale;
-  barCaption.style.transform = `translate3d(${x}px, ${captionY}px, 0) scale(${captionScale})`;
+  if (captionOpacity > 0) {
+    const captionScale = scale / startScale;
+    const captionX = collapsed.left + x - expanded.left;
+    const captionY = collapsed.top + y + expanded.captionOffset * captionScale - (expanded.captionTop - scroll);
+    coverCaption.style.transform = `translate3d(${captionX}px, ${captionY}px, 0) scale(${captionScale})`;
+  } else {
+    coverCaption.style.transform = '';
+  }
   document.body.classList.add('home-motion');
 }
 
@@ -45,11 +56,13 @@ function scheduleRender() {
 function measure() {
   const title = coverTitle.getBoundingClientRect();
   const coverRect = cover.getBoundingClientRect();
+  const caption = captionAnchor.getBoundingClientRect();
   expanded = {
     left: title.left,
     top: title.top - coverRect.top,
     width: title.width,
-    captionOffset: coverCaption.getBoundingClientRect().top - title.top,
+    captionTop: caption.top + window.scrollY,
+    captionOffset: caption.top - title.top,
   };
   collapsed = wordmark.getBoundingClientRect();
   scrollDistance = Math.max(1, Math.floor(coverRect.height - bar.getBoundingClientRect().height));

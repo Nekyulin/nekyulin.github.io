@@ -12,6 +12,8 @@ const stylesheet = await readFile(join(root, 'site', 'style.css'));
 const stylesheetVersion = createHash('sha256').update(stylesheet).digest('hex').slice(0, 12);
 const languageScript = await readFile(join(root, 'site', 'language.js'));
 const languageScriptVersion = createHash('sha256').update(languageScript).digest('hex').slice(0, 12);
+const homeScrollScript = await readFile(join(root, 'site', 'home-scroll.js'));
+const homeScrollScriptVersion = createHash('sha256').update(homeScrollScript).digest('hex').slice(0, 12);
 const katexPath = dirname(fileURLToPath(import.meta.resolve('katex/dist/katex.min.css')));
 const webFonts = [
   { name: 'cascadia-code', styles: ['index.css', 'wght-italic.css'] },
@@ -126,11 +128,10 @@ function layout({ title, description, home, path = '', content, math = false, ho
     </div>`}
     <div class="library-wordmark"${articleLanguage ? ` lang="${articleLanguage}"` : ''}>
       ${renderWordmark(home, { decorative: homepage, language: articleLanguage })}
-      ${homepage ? `<p class="home-caption library-cover-caption" data-i18n="welcome">${welcome}</p>` : ''}
     </div>
   </header>
   <main${homepage ? '' : ' class="article-main"'}>${content}</main>
-  ${homepage ? `<script src="${home}home-scroll.js" defer></script>` : ''}
+  ${homepage ? `<script src="${home}home-scroll.js?v=${homeScrollScriptVersion}" defer></script>` : ''}
   ${hasMorePosts ? `<script src="${home}post-list.js" defer></script>` : ''}
   ${analyticsSite ? `<script async src="https://gc.zgo.at/count.js" data-goatcounter="https://${analyticsSite}.goatcounter.com/count"></script>` : ''}
 </body>
@@ -298,11 +299,15 @@ function renderIndex(posts, page) {
       </div>
       <div class="home-inner home-intro">
         <h1 id="home-title">${renderWordmark('./')}</h1>
-        <p class="home-caption home-greeting" data-i18n="welcome">${welcome}</p>
-        <p class="star-note home-star-note">
-          <span class="localized-copy" lang="zh-CN">${renderStarNote('zh-CN')}</span>
-          <span class="localized-copy" lang="en">${renderStarNote('en')}</span>
-        </p>
+        <div class="home-caption-anchor">
+          <div class="home-caption">
+            <p class="home-greeting" data-i18n="welcome">${welcome}</p>
+            <p class="star-note home-star-note">
+              <span class="localized-copy" lang="zh-CN">${renderStarNote('zh-CN')}</span>
+              <span class="localized-copy" lang="en">${renderStarNote('en')}</span>
+            </p>
+          </div>
+        </div>
         <div class="home-actions">
           <a class="icon-action home-email" href="mailto:Nekyulin@outlook.com" aria-label="发送邮件" data-i18n-label="sendEmail">
             <span class="action-icon email-icon" aria-hidden="true"></span>
@@ -437,7 +442,7 @@ async function build() {
     await cp(join(root, 'site', 'icons'), join(nextOutput, 'icons'), { recursive: true });
     await cp(join(root, 'site', 'library-title.svg'), join(nextOutput, 'library-title.svg'));
     await cp(join(root, 'site', 'library-title-zh.svg'), join(nextOutput, 'library-title-zh.svg'));
-    await cp(join(root, 'site', 'home-scroll.js'), join(nextOutput, 'home-scroll.js'));
+    await writeFile(join(nextOutput, 'home-scroll.js'), homeScrollScript);
     await writeFile(join(nextOutput, 'language.js'), languageScript);
     await cp(join(root, 'site', 'post-list.js'), join(nextOutput, 'post-list.js'));
     if (commentsEnabled) await cp(join(root, 'site', 'comments.css'), join(nextOutput, 'comments.css'));

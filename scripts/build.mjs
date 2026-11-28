@@ -10,6 +10,8 @@ const postsPath = join(root, 'posts');
 const outputPath = join(root, 'dist');
 const stylesheet = await readFile(join(root, 'site', 'style.css'));
 const stylesheetVersion = createHash('sha256').update(stylesheet).digest('hex').slice(0, 12);
+const languageScript = await readFile(join(root, 'site', 'language.js'));
+const languageScriptVersion = createHash('sha256').update(languageScript).digest('hex').slice(0, 12);
 const katexPath = dirname(fileURLToPath(import.meta.resolve('katex/dist/katex.min.css')));
 const webFonts = [
   { name: 'cascadia-code', styles: ['index.css', 'wght-italic.css'] },
@@ -111,7 +113,7 @@ function layout({ title, description, home, path = '', content, math = false, ho
   ${fontStyles.join('\n  ')}
   <link rel="stylesheet" href="${home}style.css?v=${stylesheetVersion}">
   ${math ? `<link rel="stylesheet" href="${home}katex/katex.min.css">` : ''}
-  <script src="${home}language.js" defer></script>
+  <script src="${home}language.js?v=${languageScriptVersion}" defer></script>
 </head>
 <body>
   <header class="library-bar${homepage ? ' library-bar-home' : ''}"${homepage ? ' aria-hidden="true"' : ''}>
@@ -294,6 +296,9 @@ function renderIndex(posts, page) {
             <span class="action-icon email-icon" aria-hidden="true"></span>
           </a>
           ${renderLanguageToggle()}
+          <a class="icon-action home-star" href="https://github.com/Nekyulin/nekyulin.github.io" aria-label="给 GitHub 仓库点 Star" data-i18n-label="starOnGitHub">
+            <span class="action-icon star-icon" aria-hidden="true"></span>
+          </a>
         </div>
       </div>
     </section>` : ''}
@@ -420,7 +425,7 @@ async function build() {
     await cp(join(root, 'site', 'library-title.svg'), join(nextOutput, 'library-title.svg'));
     await cp(join(root, 'site', 'library-title-zh.svg'), join(nextOutput, 'library-title-zh.svg'));
     await cp(join(root, 'site', 'home-scroll.js'), join(nextOutput, 'home-scroll.js'));
-    await cp(join(root, 'site', 'language.js'), join(nextOutput, 'language.js'));
+    await writeFile(join(nextOutput, 'language.js'), languageScript);
     await cp(join(root, 'site', 'post-list.js'), join(nextOutput, 'post-list.js'));
     if (commentsEnabled) await cp(join(root, 'site', 'comments.css'), join(nextOutput, 'comments.css'));
     await cp(join(root, 'site', 'home-illustration.svg'), join(nextOutput, 'home-illustration.svg'));

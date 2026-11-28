@@ -97,6 +97,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 .language-icon { --icon: url("./icons/languages.svg"); }
 .email-icon { --icon: url("./icons/mail.svg"); }
+.star-icon { --icon: url("./icons/star.svg"); }
 .back-icon { --icon: url("./icons/chevron-left.svg"); }
 .pin-icon { --icon: url("./icons/pin.svg"); }
 

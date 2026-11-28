@@ -242,12 +242,22 @@ time { color: var(--muted); font-size: 0.875rem; font-variant-numeric: tabular-n
 
 .post-header { padding-bottom: 1.4rem; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
 .post-header .post-meta { flex-flow: row wrap; gap: 0.35rem 1rem; }
+.post-star-note { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.875rem; }
+.post-star-note a { color: inherit; text-decoration: underline; }
+.post-star-note a:hover { color: var(--text); }
 .prose { padding-top: 0.65rem; line-height: 1.85; overflow-wrap: anywhere; }
 .prose :is(h2, h3, h4, h5, h6) { color: #dac3f0; }
 .prose :is(strong, em) { color: #b9d8f6; }
 .prose :is(strong, em) a { color: inherit; }
 .prose img { display: block; max-width: 100%; height: auto; margin: 1.5rem auto; }
-.prose pre, .prose .katex-display { max-width: 100%; overflow-x: auto; }
+.prose pre { max-width: 100%; overflow-x: auto; }
+.prose .katex-display {
+  max-width: 100%;
+  margin-block: 0.5em;
+  /* KaTeX glyphs can extend above and below the line box. */
+  padding-block: 0.5em;
+  overflow: auto hidden;
+}
 .prose pre { padding: 0.85rem 1rem; border-radius: 0.4rem; background: var(--code); }
 .prose :not(pre) > code { padding: 0.1em 0.25em; border-radius: 0.2rem; background: var(--code); }
 .prose :is(pre, code) { font-family: "Cascadia Code Variable", Consolas, "Noto Serif SC Variable", monospace; }

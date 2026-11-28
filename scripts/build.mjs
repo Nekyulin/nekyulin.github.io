@@ -18,6 +18,7 @@ const webFonts = [
   { name: 'noto-serif-sc', styles: ['index.css'] },
 ];
 const siteTitle = '御琳书屋';
+const repositoryUrl = 'https://github.com/Nekyulin/nekyulin.github.io';
 const welcome = '谢谢你来看我。';
 const markdown = new MarkdownIt({ linkify: true }).use(katex, { delimiters: 'all' });
 const { escapeHtml } = markdown.utils;
@@ -296,7 +297,7 @@ function renderIndex(posts, page) {
             <span class="action-icon email-icon" aria-hidden="true"></span>
           </a>
           ${renderLanguageToggle()}
-          <a class="icon-action home-star" href="https://github.com/Nekyulin/nekyulin.github.io" aria-label="给 GitHub 仓库点 Star" data-i18n-label="starOnGitHub">
+          <a class="icon-action home-star" href="${repositoryUrl}" aria-label="给 GitHub 仓库点 Star" data-i18n-label="starOnGitHub">
             <span class="action-icon star-icon" aria-hidden="true"></span>
           </a>
         </div>
@@ -353,6 +354,10 @@ function renderPost(post, translated = false) {
   const { title, summary, html, lang } = translated ? translation : post;
   const articleTranslation = translated ? { href: './', lang: post.lang } :
     translation ? { href: `./${translation.file}`, lang: translation.lang } : null;
+  const starLink = `<a href="${repositoryUrl}">${lang === 'en' ? 'this site' : '这个网站'}</a>`;
+  const starNote = lang === 'en'
+    ? `If you enjoyed this article, please give ${starLink} a STAR on GitHub!`
+    : `如果觉得内容不错，请在 Github 上给${starLink}点个 STAR 吧！`;
   return layout({
     title: `${title} | ${siteTitle}`,
     description: summary || title,
@@ -367,6 +372,7 @@ function renderPost(post, translated = false) {
         <h1>${escapeHtml(title)}</h1>
         ${renderPostMetadata({ date, tag }, '../../', lang)}
       </header>
+      <p class="post-star-note">${starNote}</p>
       <div class="prose">${html}</div>
     </article>${renderComments(post)}`,
   });
